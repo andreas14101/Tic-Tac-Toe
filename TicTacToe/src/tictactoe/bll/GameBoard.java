@@ -5,16 +5,33 @@
  */
 package tictactoe.bll;
 
-
+import java.util.Arrays;
 
 /**
  *
  * @author Stegger
  */
+
 public class GameBoard implements IGameModel
 {
     int currentPlayerId = 0;
-    public boolean isSpotTaken = false;
+        private static final int Board_Size = 3;
+        private final int[][] board;
+        public GameBoard()
+        {
+            currentPlayerId = 0;
+            board = new int [Board_Size] [Board_Size];
+            resetBoard();
+        }
+
+        private void resetBoard()
+        {
+            for(int[] row : board)
+            {
+                Arrays.fill(row, -1);
+            }
+            currentPlayerId = 0;
+        }
     /**
      * Returns 0 for player 0, 1 for player 1.
      *
@@ -22,10 +39,19 @@ public class GameBoard implements IGameModel
      */
     public int getNextPlayer()
     {
-        //TODO Implement this method
-        return currentPlayerId;
+        return getCurrentPlayer();
     }
-
+    @Override
+    public int getCurrentPlayer() { return currentPlayerId;}
+   @Override
+    public void nextPlayer()
+   {
+        currentPlayerId = switch (currentPlayerId) {
+            case 0 -> 1;
+            case 1 -> 0;
+            default -> -1;
+        };
+   }
     /**
      * Attempts to let the current player play at the given coordinates. It the
      * attempt is succesfull the current player has ended his turn and it is the
@@ -36,26 +62,15 @@ public class GameBoard implements IGameModel
      * @return true if the move is accepted, otherwise false. If gameOver == true
      * this method will always return false.
      */
+
     public boolean play(int col, int row)
     {
-        //TODO Implement this method
-        if (currentPlayerId == 0)
-        {
-            currentPlayerId = 1;
-        }
-        else
-        {
-            currentPlayerId = 0;
-        }
-        if (isSpotTaken = false)
-        {
-            isSpotTaken = true;
+        if(board[row][col] == -1){
+            board[row][col] = currentPlayerId;
+            nextPlayer();
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
 
@@ -82,6 +97,7 @@ public class GameBoard implements IGameModel
     public void newGame()
     {
         //TODO Implement this method
+        resetBoard();
     }
 
 }
