@@ -87,13 +87,13 @@ public class GameBoard implements IGameModel
     }
     private boolean checkCells(int c1, int c2, int c3)
     {
-        return ((c1 != -1) && (c2 == c1) && (c3 == c1));
+        return ((c1!=-1) && (c2==c1) && (c3==c1));
     }
     private boolean checkRow()
     {
-        for(int row=0; row < 3; row++)
+        for(int r=0; r < 3; r++)
         {
-            if(checkCells(board[row][0], board[row][1], board[row][2]))
+            if (checkCells(board[r][0],board[r][1],board[r][2]))
             {
                 return true;
             }
@@ -102,9 +102,9 @@ public class GameBoard implements IGameModel
     }
     private boolean checkCol()
     {
-        for(int col=0; col < 3; col++)
+        for(int c=0; c < 3; c++)
         {
-            if(checkCells(board[0][col],board[1][col], board[2][col]))
+            if (checkCells(board[0][c],board[1][c],board[2][c]))
             {
                 return true;
             }
@@ -113,11 +113,11 @@ public class GameBoard implements IGameModel
     }
     private boolean checkDiagonals()
     {
-        if(checkCells(board[0][0],board[1][1], board[2][2]))
+        if (checkCells(board[0][0],board[1][1],board[2][2]))
         {
             return true;
         }
-        else if (checkCells( board[0][2],board[1][1],board[2][0]))
+        else if (checkCells(board[0][2],board[1][1],board[2][0]))
         {
             return true;
         }
@@ -177,7 +177,11 @@ public class GameBoard implements IGameModel
                 }
             }
         }
-        if (counter == 0)
+        if (counter == 0 && checkDiagonals() == true)
+        {
+            return false;
+        }
+        else if (counter == 0)
         {
             return true;
         }
