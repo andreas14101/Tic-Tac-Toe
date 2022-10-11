@@ -35,7 +35,6 @@ public class TicTacViewController implements Initializable
     
     private static final String TXT_PLAYER = "Player: ";
     private IGameModel game;
-    private GameBoard gameB;
 
     @FXML
     private void handleButtonAction(ActionEvent event)

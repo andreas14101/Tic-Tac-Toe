@@ -73,7 +73,6 @@ public class GameBoard implements IGameModel
         return false;
     }
 
-
     public boolean isGameOver()
     {
         //TODO Implement this method
