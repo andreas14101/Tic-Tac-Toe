@@ -4,12 +4,25 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 24-08-2016, 12:36:01
-    Author     : Stegger
+    Created on : 11-10-2022, 12:36:01
+    Author     : Andreas Hansen
 */
 
 #pane {
     -fx-background-image: url(../images/background.jpg);
     -fx-background-repeat: stretch;   
     -fx-background-position: center;
+}
+.button
+{
+    -fx-background-color: #0c6dab;
+    -fx-font-weight: bold;
+    -fx-font-style: oblique;
+}
+
+.startNewGameButton
+{
+    -fx-font-style: oblique;
+    -fx-font-weight: bold;
+    -fx-background-color: #69f563;
 }

@@ -67,16 +67,72 @@ public class GameBoard implements IGameModel
     {
         if(board[row][col] == -1){
             board[row][col] = currentPlayerId;
+            checkWinner();
             nextPlayer();
             return true;
         }
         return false;
     }
 
+    private int checkWinner()
+    {
+        if (checkRow() == true || checkCol() == true || checkDiagonals() == true)
+        {
+            return currentPlayerId;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    private boolean checkRow()
+    {
+        for(int row=0; row < 3; row++)
+        {
+            if(board[row] [0] == board[row] [1] && board[row] [2] == board[row] [0])
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean checkCol()
+    {
+        for(int col=0; col < 3; col++)
+        {
+            if(board[0] [col] == board[1] [col] && board[2] [col] == board[0] [col])
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean checkDiagonals()
+    {
+        if(board[0] [0] == board[1] [1] && board[2] [2] == board[0] [0])
+        {
+            return true;
+        }
+        else if (board[0] [2] == board[1] [1] && board[2] [0] == board[0] [2])
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public boolean isGameOver()
     {
-        //TODO Implement this method
-        return false;
+        if (checkWinner() == 0 || checkWinner() == 1 || checkWinner() == -1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -87,7 +143,7 @@ public class GameBoard implements IGameModel
     public int getWinner()
     {
         //TODO Implement this method
-        return -1;
+        return checkWinner();
     }
 
     /**
