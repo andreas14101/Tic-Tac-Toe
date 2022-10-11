@@ -177,7 +177,7 @@ public class GameBoard implements IGameModel
                 }
             }
         }
-        if (counter == 0 && checkDiagonals() == true)
+        if ((counter == 0 && checkDiagonals() == true) || (counter == 0 && checkRow() == true) || (counter == 0 && checkCol() == true) )
         {
             return false;
         }
