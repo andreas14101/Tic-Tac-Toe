@@ -4,11 +4,11 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 12-10-2022, 10:56:01
+    Created on : 12-10-2022, 11:30:01
     Author     : Andreas Hansen
 */
 
-.pane {
+#pane {
     -fx-background-image: url(../images/background.jpg);
     -fx-background-repeat: stretch;   
     -fx-background-position: center;
