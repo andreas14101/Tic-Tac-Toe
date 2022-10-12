@@ -19,8 +19,9 @@ public interface IGameModel
      */
     public int getNextPlayer();
 
-    int getCurrentPlayer();
-
+    /**
+     * changes the Id of the Current player
+     */
     void nextPlayer();
     /**
      * Attempts to let the current player play at the given coordinates. If the

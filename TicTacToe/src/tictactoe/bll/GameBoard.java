@@ -14,9 +14,10 @@ import java.util.Arrays;
 
 public class GameBoard implements IGameModel
 {
-    int currentPlayerId = 0;
+        int currentPlayerId = 0;
         private static final int Board_Size = 3;
         private final int[][] board;
+
         public GameBoard()
         {
             currentPlayerId = 0;
@@ -24,7 +25,10 @@ public class GameBoard implements IGameModel
             resetBoard();
         }
 
-        private void resetBoard()
+    /**
+     * resets the game board
+     */
+    private void resetBoard()
         {
             for(int[] row : board)
             {
@@ -39,12 +43,14 @@ public class GameBoard implements IGameModel
      */
     public int getNextPlayer()
     {
-        return getCurrentPlayer();
+        return currentPlayerId;
     }
+
+    /**
+     * changes currentPlayerId
+     */
     @Override
-    public int getCurrentPlayer() { return currentPlayerId;}
-   @Override
-    public void nextPlayer()
+   public void nextPlayer()
    {
         currentPlayerId = switch (currentPlayerId) {
             case 0 -> 1;
@@ -62,21 +68,24 @@ public class GameBoard implements IGameModel
      * @return true if the move is accepted, otherwise false. If gameOver == true
      * this method will always return false.
      */
-
     public boolean play(int col, int row)
     {
         if(board[row][col] == -1){
             board[row][col] = currentPlayerId;
-            checkWinner();
+            checkForWinner();
             nextPlayer();
             return true;
         }
         return false;
     }
 
-    private boolean checkWinner()
+    /**
+     * checks for Winner
+     * @return true if there is a winner found, otherwise false.
+     */
+    private boolean checkForWinner()
     {
-        if (checkRow() == true || checkCol() == true || checkDiagonals() == true || checkTie() == true)
+        if (checkRow() || checkCol() || checkDiagonals()|| checkTie())
         {
             return true;
         }
@@ -85,10 +94,23 @@ public class GameBoard implements IGameModel
             return false;
         }
     }
+
+    /**
+     * checks if the celles are full
+     * @param c1 makes sure that cell1 is not -1
+     * @param c2 makes sure that cell2 is the same value as cell1
+     * @param c3 makes sure that cell3 is the same value as cell1
+     * @return a condition for use in if-statements and for-loops
+     */
     private boolean checkCells(int c1, int c2, int c3)
     {
         return ((c1!=-1) && (c2==c1) && (c3==c1));
     }
+
+    /**
+     * checks the rows for a winner
+     * @return true if there is a winner found, otherwise false
+     */
     private boolean checkRow()
     {
         for(int r=0; r < 3; r++)
@@ -100,6 +122,11 @@ public class GameBoard implements IGameModel
         }
         return false;
     }
+
+    /**
+     * checks the columns for a winner
+     * @return true if a winner is found, otherwise false
+     */
     private boolean checkCol()
     {
         for(int c=0; c < 3; c++)
@@ -111,6 +138,11 @@ public class GameBoard implements IGameModel
         }
         return false;
     }
+
+    /**
+     * checks the diagonals for a winner
+     * @return true if a winner is found, otherwise false
+     */
     private boolean checkDiagonals()
     {
         if (checkCells(board[0][0],board[1][1],board[2][2]))
@@ -126,9 +158,14 @@ public class GameBoard implements IGameModel
             return false;
         }
     }
+
+    /**
+     * checks if the game is over
+     * @return true if the game is over, otherwise false
+     */
     public boolean isGameOver()
     {
-        if (checkWinner() == true)
+        if (checkForWinner() == true)
         {
             return true;
         }
@@ -145,7 +182,20 @@ public class GameBoard implements IGameModel
      */
     public int getWinner()
     {
-        if (checkTie() == true)
+        if (checkRow() || checkCol() || checkDiagonals())
+        {
+            if(currentPlayerId == 1)
+            {
+                currentPlayerId = 0;
+                return currentPlayerId;
+            }
+            else
+            {
+                currentPlayerId = 1;
+                return currentPlayerId;
+            }
+        }
+        if (checkTie())
         {
             return -1;
         }
@@ -160,10 +210,13 @@ public class GameBoard implements IGameModel
      */
     public void newGame()
     {
-        //TODO Implement this method
         resetBoard();
     }
 
+    /**
+     * checks for a tie
+     * @return true if all spaces are filled and no winner is found, otherwise false.
+     */
     private boolean checkTie()
     {
         int counter =9;
@@ -177,11 +230,7 @@ public class GameBoard implements IGameModel
                 }
             }
         }
-        if ((counter == 0 && checkDiagonals() == true) || (counter == 0 && checkRow() == true) || (counter == 0 && checkCol() == true) )
-        {
-            return false;
-        }
-        else if (counter == 0)
+        if (counter == 0)
         {
             return true;
         }
