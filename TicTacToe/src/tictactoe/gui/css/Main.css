@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : Andreas Hansen
 */
 
-.pane {
+#pane {
     -fx-background-image: url(../images/background.jpg);
     -fx-background-repeat: stretch;   
     -fx-background-position: center;
